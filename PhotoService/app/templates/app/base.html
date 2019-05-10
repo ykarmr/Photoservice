@@ -13,7 +13,7 @@
         <div class="container">
             <h1><a href="{% url 'app:index' %}">写真投稿サイト</a></h1>
             <div class="header-menu">
-                <a href="">投稿</a>
+                <a href="{% url 'app:photos_new' %}">投稿</a>
                 <!-- userはis_authenticated属性、持っている -->
                 <!-- loginならtrue,logoutならfolse -->
                 {% if request.user.is_authenticated %}
@@ -27,7 +27,12 @@
     </header>
 
     <div class="container">
-        {% block content %}{% endblock %}
+        {% block content %}
+          {% for message in messages %}
+            <p class="message-success">{{ message }}</p>
+          {% endfor %}
+       
+       {% endblock %}
     </div>
 </body>
 
