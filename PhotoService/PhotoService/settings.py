@@ -131,3 +131,10 @@ STATICFILES_DIRS = (
 #画像の保存先の適用
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#ユーザがログインするときに使うページ
+LOGIN_URL = 'app:login'
+#ログインしたときにリダイレクトされるページ
+LOGIN_REDIRECT_URL = 'app:index'
+#ログアウトしたときにリダイレクトされるページ
+LOGOUT_REDIRECT_URL = 'app:index'
