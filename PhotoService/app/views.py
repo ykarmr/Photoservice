@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.models import User
-from .models import Photo
+from .models import Photo,Category
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -36,6 +36,14 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'app/signup.html', {'form': form})
+
+
+def photos_category(request, category):
+    # titleがURLの文字列と一致するCategoryインスタンスを取得
+    category = Category.objects.get(title=category)
+    # 取得したCategoryに属するPhoto一覧を取得
+    photos = Photo.objects.filter(category=category).order_by('-created_at')
+    return render(request, 'app/index.html', {'photos': photos, 'category':category})
 
 #ユーザーがログイン状態であればphotos_new関数をそのまま実行し、
 #ログインしていない状態であればphotos_new関数を実行せずにログイン画面
